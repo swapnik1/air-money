@@ -8,11 +8,18 @@ public class User {
 	private int id;
 	public String email;
 	public String password;
-	protected List<String> errors;
+	public List<String> errors;
 	
 	public User(){
 		this.setId(0);
 		this.errors = new ArrayList<>();
+	}
+	
+	public User(String email, String password){
+		this.setId(0);
+		this.errors = new ArrayList<>();
+		this.email = email;
+		this.password = password;
 	}
 	
 	/**
@@ -73,9 +80,22 @@ public class User {
 		return null;
 	}
 	
+	/*
+	 * DEBUG
+	 */
 	public static User findByEmail(String email){
 		// get user from db
+		if(email.endsWith(".com")){
+			return new User(email,"password");
+		}
 		return null;
+	}
+
+	public boolean comparePassword(String password) {
+		if(password.equals(this.password)){
+			return true;
+		}
+		return false;
 	}
 	
 }
